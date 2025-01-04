@@ -1,10 +1,10 @@
-# `$OEM$` Folders made easy
+# <span>$</span>OEM<span>$</span> Folders made easy
 
 Generally, the Windows System Image Manager (Windows SIM) is used in order to generate images and autounattend.xml files.  However, there is a simple method to bypassing the Windows SIM.
 
 By using a crafted autounattend.xml file in conjunction with the `$OEM$` folders you are able to do almost everything that can be done using the Windows SIM.
 
-All of the references to the Microsoft technical documents on distribution sets [1] and folders within [2] are at the end of this document.
+All of the references to the Microsoft technical documents on distribution sets and folders within are at the end of this document under [References](https://github.com/bfarnam/autounattend_Made_Easy/edit/main/%24OEM%24-Usage-Explained.md#references).
 
 The `$OEM$` folder tree goes in different spots on the installation media depending on the UseConfigurationSet setting which is evaluated in the WindowsPE pass for the Micorosoft Windows Setup Component:
 
@@ -55,9 +55,9 @@ You can use the `$OEM$` folders to copy scripts, binaries, and other files to Wi
 
 When you create a distribution share by using Windows System Image Manager (Windows SIM), three folders are created automatically. The folders are named `$OEM$` Folders, Out-of-Box Drivers, and Packages. If you create your own distribution share, it must contain at least one of the following folders to be recognized as a valid distribution share folder by Windows SIM:
 
-+ `$OEM$` Folders - See Table Below for the `$OEM$` Folder Structure
-+ Out-of-Box Drivers - See the Out-of-Box Drivers Folders Section Below
-+ Packages - See Packages Section Below
++ `$OEM$` Folders - See [Table Below](#oem-table) for the `$OEM$` Folder Structure
++ Out-of-Box Drivers - See the [Out-of-Box Drivers Folders](#oob-drivers-folders) Section Below
++ Packages - See [Packages Folders](#packages-folder) Section Below
 
 The `$OEM$` subfolders are organized in a specific structure and WindoesPE setup copies the folder structure verbatim.
 
@@ -66,58 +66,23 @@ For example, if you add files to `$OEM$\$1\Program Files\Application1`, Windows 
 **NOTES:**
 
 Microsoft states that the `$OEM$` folder and subfolders can only be used when creating configuration sets. This is simply not true. You can use `$OEM$` folders to include logos for branding and to add applications and other files that customize the unattended installation. `$OEM$` folders were used with previous versions of Windows, and, in some cases, are not supported in Windows Vista and Windows 11.
-    See the section titled IMPORTANT below for unused entries on Windows 10 and Windows Server 2019 and higher.
+
+See the section titled IMPORTANT below for unused entries on Windows 10 and Windows Server 2019 and higher.
 
 ### WARNING
-Do not overwrite existing files that are carried and serviced by the operating system. Using the `$OEM$` folder to update or overwrite these files can cause the operating system to behave unpredictably and cause serious issues.
+> Do not overwrite existing files that are carried and serviced by the operating system. Using the `$OEM$` folder to update or overwrite these files can cause the operating system to behave unpredictably and cause serious issues.
 
-## `$OEM$` Folders Table
-
-<table>
-<thead>
-    <tr>
-        <th>Folder</th>
-        <th>Definition</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <td>`$OEM$`</td>
-        <td>Contains supplemental folders and files for an automated or customized installation.<br /><br />
-        NOTES:<br />
-        Contains all supplemental folders and files for an automated or customized installation.</td>
-    </tr>
-        <tr>
-        <td>$OEM$\$$</td>
-        <td>Contains files that Windows Setup copies to the %WINDIR% folder (for example, C:\Windows) during installation.<br /><br />
-            NOTES:<br />
-            $OEM$\$$\System32`<br>Contains files that Windows Setup copies to the %WINDIR%\System32 folder during installation.</td>
-    </tr>
-    <tr>
-        <td>$OEM$\$1</td>
-        <td>Represents the root of the drive on which you installed Windows (also called the boot partition), and contains files that Windows Setup copies to the boot partition during installation.<br /><br />
-            NOTES:<br />
-            Windows Setup will COPY EVERYTHING here to the system boot drive. It is no longer required to modify the install.wim to include these extra directories.<br /><br />
-            Theoretically any directory placed in $OEM$\$1 will be copied to C:\<br /><br />
-            USAGE:<br />
-            See below under $OEM$\$1\subfolder</td>
-    </tr>
-    <tr>
-        <td>$OEM$\$1\subfolder</td>
-        <td>Represents subfolders of the root drive.<br />
-            Example: $OEM$\$1\MyDriver.<br /><br />
-            NOTES:<br />
-            Theoretically any directory placed in $OEM$\$1 will be copied to C:\<br /><br />
-            USAGE:<br />
-            This is where we place the drivers directory wich might include drivers and update packs to launch in unattend.xml ($OEM$\$1\drivers), the software directory with software to load during setup from unattend.xml or for the admin/user to load as needed ($OEM$\$1\software), and the scripts directory where some scripts and logs are stored ($OEM$\$1\scripts or $OEM$\$$\Setups\Scripts).</td>
-    </tr>
-    <tr>
-        <td>$OEM$\driveletter\subfolder</td>
-        <td>Represents other drive letters and subfolders. Multiple instances of this type of folder can exist under the $OEM$\driveletter folder.<br /><br />
-            Example: $OEM$\D\MyFolder.</td>
-    </tr>
-</tbody>
-</table>
+## `$OEM$` Folders Table 
+<a name="oem-table"></a>
+| Folder | Definition |
+| ------------- | ------------- |
+| `$OEM$` | Contains supplemental folders and files for an automated or customized installation.<br/><br/>NOTES:<br/><br/>Contains all supplemental folders and files for an automated or customized installation.|
+| `$OEM$\$$` | Contains files that Windows Setup copies to the %WINDIR% folder (for example, C:\Windows) during installation. |
+| `$OEM$\$$\System32` | Contains files that Windows Setup copies to the %WINDIR%\System32 folder during installation. |
+| `$OEM$\$1` | Represents the root of the drive on which you installed Windows (also called the boot partition), and contains files that Windows Setup copies to the boot partition during installation.<br /><br />NOTES:<br />Windows Setup will COPY EVERYTHING here to the system boot drive. It is no longer required to modify the install.wim to include these extra directories.<br /><br />Theoretically any directory placed in $OEM$\$1 will be copied to C:\<br /><br />USAGE:<br />See below under `$OEM$\$1\subfolder` |
+| `$OEM$\$1\subfolder` | Represents subfolders of the root drive.<br /><br />Example: `$OEM$\$1\MyDriver`<br /><br />NOTES:<br />Theoretically any directory placed in `$OEM$\$1` will be copied to C:\<br /><br />USAGE:<br />
+            This is where we place the drivers directory wich might include drivers and update packs to launch in unattend.xml ($OEM$\$1\drivers), the software directory with software to load during setup from unattend.xml or for the admin/user to load as needed ($OEM$\$1\software), and the scripts directory where some scripts and logs are stored ($OEM$\$1\scripts or $OEM$\$$\Setups\Scripts). |
+| `$OEM$\driveletter\subfolder` | Represents other drive letters and subfolders. Multiple instances of this type of folder can exist under the $OEM$\driveletter folder.<br /><br />Example: `$OEM$\D\MyFolder` |
 
 ## IMPORTANT
 THE FOLLOWING $OEM$ paths ARE NO LONGER SUPPORTED ON Windows 10/Server 2019 and higher!
@@ -162,6 +127,7 @@ THE FOLLOWING $OEM$ paths ARE NO LONGER SUPPORTED ON Windows 10/Server 2019 and 
 </table>
 
 ### Out-of-Box Drivers Folder
+<a name="oob-drivers-folders"></a>
 #### What are Drivers?
 Drivers are a type of software that enables hardware or devices to function.
 
@@ -183,6 +149,7 @@ NOTE:
 By using the Microsoft-Windows-PnpCustomizationsWinPE component, you must add boot-critical device drivers that are required for installation during the windowsPE configuration pass. You can also add device drivers to an offline image by using Deployment Image Servicing and Management (DISM).
 
 #### Packages Folder
+<a name="packages-folder"></a>
 The Packages folder is a location for Windows software updates. Package types include service packs, security updates, language packs, and other packages that Microsoft issues. You must use Windows SIM to import packages to a distribution share. After a package is imported and available in the Distribution Share pane, you can add the package to the answer file.
 
 ## REFERENCES
