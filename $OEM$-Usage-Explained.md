@@ -2,11 +2,11 @@
 
 Generally, the Windows System Image Manager (Windows SIM) is used in order to generate images and autounattend.xml files.  However, there is a simple method to bypassing the Windows SIM.
 
-By using a crafted autounattend.xml file in conjunction with the `$OEM$` folders you are able to do almost everything that can be done using the Windows SIM.
+By using a crafted autounattend.xml file in conjunction with the <span>$</span>OEM<span>$</span> folders you are able to do almost everything that can be done using the Windows SIM.
 
 All of the references to the Microsoft technical documents on distribution sets and folders within are at the end of this document under [References](https://github.com/bfarnam/autounattend_Made_Easy/edit/main/%24OEM%24-Usage-Explained.md#references).
 
-The `$OEM$` folder tree goes in different spots on the installation media depending on the UseConfigurationSet setting which is evaluated in the WindowsPE pass for the Micorosoft Windows Setup Component:
+The <span>$</span>OEM<span>$</span> folder tree goes in different spots on the installation media depending on the UseConfigurationSet setting which is evaluated in the WindowsPE pass for the Micorosoft Windows Setup Component:
 
 ```
 <settings pass="windowsPE">
@@ -16,14 +16,14 @@ IF
 ```
 <UseConfigurationSet>true</UseConfigurationSet>
 ```
-THEN the `$OEM$` folder tree is in the root of the install media at:
+THEN the <span>$</span>OEM<span>$</span> folder tree is in the root of the install media at:
 `\$OEM$`
 
 IF
 ```
 <UseConfigurationSet>false</UseConfigurationSet>
 ```
-THEN the `$OEM$` folder tree is in the sources folder on the install media at:
+THEN the <span>$</span>OEM<span>$</span> folder tree is in the sources folder on the install media at:
 `\sources\$OEM$`
 
 Your WindowsPE Setting Pass *may* look like this:
@@ -41,38 +41,38 @@ Your WindowsPE Setting Pass *may* look like this:
         **The rest of your xml**
 ```
 
-### Purpose of the `$OEM$` Folders
-+ `$OEM$` folders organize supplemental files used to customize a Windows installation.
+### Purpose of the <span>$</span>OEM<span>$</span> Folders
++ <span>$</span>OEM<span>$</span> folders organize supplemental files used to customize a Windows installation.
 + Subfolders created within the $OEM$ folder must coincide with the structure of a standard Windows installation.
 
-### What are `$OEM$`Folders?
-`$OEM$` folders are a type of distribution share.
+### What are <span>$</span>OEM<span>$</span>Folders?
+<span>$</span>OEM<span>$</span> folders are a type of distribution share.
 
 ### What is a distribution share?
 A distribution share is an optional set of folders that contain files used to customize Windows through unattended answer files. When you add items in a distribution share to an answer file, the path to the item is included in the answer file. During installation, Windows Setup uses this path to install the additional applications and device drivers. For example, if you connect to a distribution share on a network, that network path will be referenced in the answer file.
 
-You can use the `$OEM$` folders to copy scripts, binaries, and other files to Windows during installation. An answer file can reference files and folders stored in subfolders of `$OEM$`. 
+You can use the <span>$</span>OEM<span>$</span> folders to copy scripts, binaries, and other files to Windows during installation. An answer file can reference files and folders stored in subfolders of <span>$</span>OEM<span>$</span>. 
 
-When you create a distribution share by using Windows System Image Manager (Windows SIM), three folders are created automatically. The folders are named `$OEM$` Folders, Out-of-Box Drivers, and Packages. If you create your own distribution share, it must contain at least one of the following folders to be recognized as a valid distribution share folder by Windows SIM:
+When you create a distribution share by using Windows System Image Manager (Windows SIM), three folders are created automatically. The folders are named <span>$</span>OEM<span>$</span> Folders, Out-of-Box Drivers, and Packages. If you create your own distribution share, it must contain at least one of the following folders to be recognized as a valid distribution share folder by Windows SIM:
 
-+ `$OEM$` Folders - See [Table Below](#oem-table) for the `$OEM$` Folder Structure
++ <span>$</span>OEM<span>$</span> Folders - See [Table Below](#oem-table) for the <span>$</span>OEM<span>$</span> Folder Structure
 + Out-of-Box Drivers - See the [Out-of-Box Drivers Folders](#oob-drivers-folders) Section Below
 + Packages - See [Packages Folders](#packages-folder) Section Below
 
-The `$OEM$` subfolders are organized in a specific structure and WindoesPE setup copies the folder structure verbatim.
+The <span>$</span>OEM<span>$</span> subfolders are organized in a specific structure and WindoesPE setup copies the folder structure verbatim.
 
 For example, if you add files to `$OEM$\$1\Program Files\Application1`, Windows Setup will copy them to `C:\Program Files\Application1` on the Windows installation.
 
 **NOTES:**
 
-Microsoft states that the `$OEM$` folder and subfolders can only be used when creating configuration sets. This is simply not true. You can use `$OEM$` folders to include logos for branding and to add applications and other files that customize the unattended installation. `$OEM$` folders were used with previous versions of Windows, and, in some cases, are not supported in Windows Vista and Windows 11.
+Microsoft states that the <span>$</span>OEM<span>$</span> folder and subfolders can only be used when creating configuration sets. This is simply not true. You can use <span>$</span>OEM<span>$</span> folders to include logos for branding and to add applications and other files that customize the unattended installation. <span>$</span>OEM<span>$</span> folders were used with previous versions of Windows, and, in some cases, are not supported in Windows Vista and Windows 11.
 
 See the section titled IMPORTANT below for unused entries on Windows 10 and Windows Server 2019 and higher.
 
 ### WARNING
-> Do not overwrite existing files that are carried and serviced by the operating system. Using the `$OEM$` folder to update or overwrite these files can cause the operating system to behave unpredictably and cause serious issues.
+> Do not overwrite existing files that are carried and serviced by the operating system. Using the <span>$</span>OEM<span>$</span> folder to update or overwrite these files can cause the operating system to behave unpredictably and cause serious issues.
 
-## `$OEM$` Folders Table 
+## <span>$</span>OEM<span>$</span> Folders Table 
 <a name="oem-table"></a>
 | Folder | Definition |
 | ------------- | ------------- |
