@@ -7,7 +7,7 @@ Christoph's novel use of Extracting Scripts from the XML itself and placing them
 
 Instead of re-creating the xml file every time I wanted to change something, I decided to use a "launcher" in each phase which then scans the C:\Windows\Setup\Scripts directory for certain script names to accomplish the various tasks.  This way I can have a generic Windows 11 autounattend.xml file which does different things depending on what scripts I include.
 
-The "trick" to making this work is the usage of the "$OEM$" directories.  WindowsPE copies this over during the initial file copy (although files copied do not assume the "trusted installer" as owner - more on that later).  I simply place the scripts I want to run in the "$OEM$\$$\Setup\Scripts" directory and let the installation do the rest.
+The trick to making this work is the usage of the $OEM$ directories.  WindowsPE copies this over during the initial file copy (although files copied do not assume the "trusted installer" as owner - more on that later).  I simply place the scripts I want to run in the $OEM$\$$\Setup\Scripts directory and let the installation do the rest.
 
 If you decide to create your own autounattend.xml file or use one of the other online generators, then you will have to place the code snipets that fire off these tasks into your xml file.
 
