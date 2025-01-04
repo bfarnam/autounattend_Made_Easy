@@ -4,29 +4,44 @@ Generally, the Windows System Image Manager (Windows SIM) is used in order to ge
 
 By using a crafted autounattend.xml file in conjunction with the `$OEM$` folders you are able to do almost everything that can be done using the Windows SIM.
 
-The `$OEM$` folder tree goes in different spots depending on the type of autounattend.xml file you are using:
+All of the references to the Microsoft technical documents on distribution sets [1] and folders within [2] are at the end of this document.
 
-IF the USE CONFIGURATION SET is TRUE:
+The `$OEM$` folder tree goes in different spots on the installation media depending on the UseConfigurationSet setting which is evaluated in the WindowsPE pass for the Micorosoft Windows Setup Component:
+
 ```
 <settings pass="windowsPE">
-    <component name="Microsoft-Windows-Setup"....
-        <UseConfigurationSet>true</UseConfigurationSet>
+    <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
 ```
-THEN the `$OEM$` folder tree is on the root of the install media:
+IF
+```
+<UseConfigurationSet>true</UseConfigurationSet>
+```
+THEN the `$OEM$` folder tree is in the root of the install media at:
 `\$OEM$`
 
-IF the USE CONFIGURATION SET is FALSE:
+IF
 ```
-<settings pass="windowsPE">
-    <component name="Microsoft-Windows-Setup"....
-        <UseConfigurationSet>false</UseConfigurationSet>
+<UseConfigurationSet>false</UseConfigurationSet>
 ```
-THEN the `$OEM$` folder tree is in the sources folder on the install media:
+THEN the `$OEM$` folder tree is in the sources folder on the install media at:
 `\sources\$OEM$`
 
-All of the references to the Microsoft technical documents are at the end.
+Your WindowsPE Setting Pass *may* look like this:
+```
+<settings pass="windowsPE">
+    <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+    <ImageInstall>
+        **ImageInstall setting go here**
+    </ImageInstall>
+    <UserData>
+        **UserData setting go here**
+    </UserData>
+    <UseConfigurationSet>true</UseConfigurationSet>
+    <RunSynchronous>
+        **The rest of your xml**
+```
 
-PURPOSE:
+### Purpose of the `$OEM$` Folders
 + `$OEM$` folders organize supplemental files used to customize a Windows installation.
 + Subfolders created within the $OEM$ folder must coincide with the structure of a standard Windows installation.
 
@@ -36,28 +51,27 @@ PURPOSE:
 ### What is a distribution share?
 A distribution share is an optional set of folders that contain files used to customize Windows through unattended answer files. When you add items in a distribution share to an answer file, the path to the item is included in the answer file. During installation, Windows Setup uses this path to install the additional applications and device drivers. For example, if you connect to a distribution share on a network, that network path will be referenced in the answer file.
 
-You can use the `$OEM$` folder to copy scripts, binaries, and other files to Windows during installation. An answer file can reference files and folders stored in subfolders of `$OEM$`. 
+You can use the `$OEM$` folders to copy scripts, binaries, and other files to Windows during installation. An answer file can reference files and folders stored in subfolders of `$OEM$`. 
 
 When you create a distribution share by using Windows System Image Manager (Windows SIM), three folders are created automatically. The folders are named `$OEM$` Folders, Out-of-Box Drivers, and Packages. If you create your own distribution share, it must contain at least one of the following folders to be recognized as a valid distribution share folder by Windows SIM:
 
-+ $OEM$ Folders - See Table Below for $OEM$ Folders
++ `$OEM$` Folders - See Table Below for the `$OEM$` Folder Structure
 + Out-of-Box Drivers - See the Out-of-Box Drivers Folders Section Below
-+ Packages - See Table Below for Packages
++ Packages - See Packages Section Below
 
-The `$OEM$` subfolders are organized in a specific structure.
+The `$OEM$` subfolders are organized in a specific structure and WindoesPE setup copies the folder structure verbatim.
 
 For example, if you add files to `$OEM$\$1\Program Files\Application1`, Windows Setup will copy them to `C:\Program Files\Application1` on the Windows installation.
 
 **NOTES:**
-The `$OEM$` folder and subfolders can only be used when creating configuration sets. You can use `$OEM$` folders to include logos for branding and to add applications and other files that customize the unattended installation. `$OEM$` folders were used with previous versions of Windows, and, in some cases, are not supported in Windows Vista and Windows 11. 
 
-IMPORTANT WARNING:
+Microsoft states that the `$OEM$` folder and subfolders can only be used when creating configuration sets. This is simply not true. You can use `$OEM$` folders to include logos for branding and to add applications and other files that customize the unattended installation. `$OEM$` folders were used with previous versions of Windows, and, in some cases, are not supported in Windows Vista and Windows 11.
+    See the section titled IMPORTANT below for unused entries on Windows 10 and Windows Server 2019 and higher.
+
+### WARNING
 Do not overwrite existing files that are carried and serviced by the operating system. Using the `$OEM$` folder to update or overwrite these files can cause the operating system to behave unpredictably and cause serious issues.
 
-USAGE NOTES: 
-See the section titled IMPORTANT below for unused entries on Windows 10 and Windows Server 2019 and higher.
-
-### $OEM$ Folders Table
+## `$OEM$` Folders Table
 
 <table>
 <thead>
@@ -68,7 +82,7 @@ See the section titled IMPORTANT below for unused entries on Windows 10 and Wind
 </thead>
 <tbody>
     <tr>
-        <td>$OEM$</td>
+        <td>`$OEM$`</td>
         <td>Contains supplemental folders and files for an automated or customized installation.<br /><br />
         NOTES:<br />
         Contains all supplemental folders and files for an automated or customized installation.</td>
@@ -105,8 +119,7 @@ See the section titled IMPORTANT below for unused entries on Windows 10 and Wind
 </tbody>
 </table>
 
-
-IMPORTANT
+## IMPORTANT
 THE FOLLOWING $OEM$ paths ARE NO LONGER SUPPORTED ON Windows 10/Server 2019 and higher!
 
 <table>
@@ -165,19 +178,13 @@ Setup by using Windows SIM. Windows Setup uses the following types of drivers:
 + In-box drivers installed using an .msi file:  
   In-box drivers that require a .msi file are added the same way that applications are added.
 
-NOTE:  
+NOTE:
+
 By using the Microsoft-Windows-PnpCustomizationsWinPE component, you must add boot-critical device drivers that are required for installation during the windowsPE configuration pass. You can also add device drivers to an offline image by using Deployment Image Servicing and Management (DISM).
 
-USAGE NOTES:  
-WE DO NOT USE THIS FOLDER
-
-
-### Packages Folder
+#### Packages Folder
 The Packages folder is a location for Windows software updates. Package types include service packs, security updates, language packs, and other packages that Microsoft issues. You must use Windows SIM to import packages to a distribution share. After a package is imported and available in the Distribution Share pane, you can add the package to the answer file.
 
-USAGE NOTES:  
-WE DO NOT USE THIS FOLDER
-
-EXTERNAL REFERENCES:  
-https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/manage-files-and-folders-in-a-distribution-share
-https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview
+## REFERENCES
+[1]: https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/distribution-shares-and-configuration-sets-overview
+[2]: https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/manage-files-and-folders-in-a-distribution-share
