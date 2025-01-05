@@ -7,10 +7,10 @@
 # ------------> calls C:\Windows\Setup\Scripts\phase1-*.ps1 scripts
 # ------------> calls C:\Windows\Setup\Scripts\phase2-*.ps1 scripts
 
-# *** Chained VIA base-install.ps1
+# *** Chained VIA begin-phase1-install.ps1
 # Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\phase1-install-drivers.ps1' -Raw | Invoke-Expression;
 
-# Copied From Brett's Universal PS1 Launcher
+# Adapted From Brett's Universal PS1 Launcher
 
 $strScriptName = $env:SystemRoot+'\Setup\Scripts\phase1-install-drivers.ps1';
 $logfile = $env:SystemRoot+'\Setup\Scripts\phase1-install-drivers.log';
@@ -25,8 +25,10 @@ $scripts = @(
     {
         $sourcePath = $env:SystemDrive+'\drivers\*';
         $filesToInstall = Get-ChildItem -Path $sourcePath -File -Include *.install;
+        $i = 0;
         $filesToInstall | ForEach-Object {
-            $output = "Using Install File "+$_.Fullname;
+            $i ++; 
+            $output = "Using Install File "+$i+" of "+$filesToInstall.count+" : "+$_.Fullname;
             Write-Output $output;
             Get-Content -LiteralPath $_.Fullname -Raw | Invoke-Expression;
             Start-Sleep -Seconds 30;

@@ -9,7 +9,7 @@
 
 # Get-Content -LiteralPath 'C:\Windows\Setup\scripts\begin-phase1-install.ps1' -Raw | Invoke-Expression;
 
-# Copied From Brett's Universal PS1 Launcher
+# Adapted From Brett's Universal PS1 Launcher
 
 $strScriptName = $env:SystemRoot+'\Setup\Scripts\begin-phase1-install.ps1';
 $logfile = $env:SystemRoot+'\Setup\Scripts\begin-phase1-install.log';
@@ -22,13 +22,16 @@ $scripts = @(
         Write-Output $output;
     };
     {
+        # Set to Highperformance for installation
         powercfg /s 8C5E7FDA-E8BF-4A96-9A85-A6E23A8C635C
     };
     {
         $sourcePath = $env:SystemRoot+'\Setup\Scripts\*';
         $filesToInstall = Get-ChildItem -Path $sourcePath -File -Include phase1-*.ps1;
+        $i = 0;
         $filesToInstall | ForEach-Object {
-            $output = "Using Install File "+$_.Fullname;
+            $i ++; 
+            $output = "Using Install File "+$i+" of "+$filesToInstall.count+" : "+$_.Fullname;
             Write-Output $output;
             Get-Content -LiteralPath $_.Fullname -Raw | Invoke-Expression;
             Start-Sleep -Seconds 30;
@@ -37,8 +40,10 @@ $scripts = @(
     {
         $sourcePath = $env:SystemRoot+'\Setup\Scripts\*';
         $filesToInstall = Get-ChildItem -Path $sourcePath -File -Include phase2-*.ps1;
+        $i = 0;
         $filesToInstall | ForEach-Object {
-            $output = "Using Install File "+$_.Fullname;
+            $i ++; 
+            $output = "Using Install File "+$i+" of "+$filesToInstall.count+" : "+$_.Fullname;
             Write-Output $output;
             Get-Content -LiteralPath $_.Fullname -Raw | Invoke-Expression;
             Start-Sleep -Seconds 30;

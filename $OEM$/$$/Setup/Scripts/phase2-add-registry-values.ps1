@@ -7,10 +7,10 @@
 # ------------> calls C:\Windows\Setup\Scripts\phase1-*.ps1 scripts
 # ------------> calls C:\Windows\Setup\Scripts\phase2-*.ps1 scripts
 
-# *** Chained VIA base-install.ps1
+# *** Chained VIA begin-phase1-install.ps1
 # Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\phase2-add-registry-values.ps1' -Raw | Invoke-Expression;
 
-# Copied From Brett's Universal PS1 Launcher
+# Adapted From Brett's Universal PS1 Launcher
 
 $strScriptName = $env:SystemRoot+'\Setup\Scripts\phase2-add-registry-values.ps1';
 $logfile = $env:SystemRoot+'\Setup\Scripts\phase2-add-registry-values.log';
@@ -23,10 +23,10 @@ $scripts = @(
         Write-Output $output;
     };
     {
-        reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "RegisteredOwner" /t REG_SZ /d "Ferguson Police Department" /f;
+        reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "RegisteredOwner" /t REG_SZ /d "I am the Owner" /f;
     };
     {
-        reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "RegisteredOrganization" /t REG_SZ /d "City of Ferguson" /f;
+        reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "RegisteredOrganization" /t REG_SZ /d "Me" /f;
     };
     {
         reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "ScreenSaverGracePeriod" /t REG_DWORD /d 300 /f;

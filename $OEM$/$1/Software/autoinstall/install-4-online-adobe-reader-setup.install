@@ -1,0 +1,5 @@
+$uri = [uri]::new( 'https://admdownload.adobe.com/rdcm/installers/live/readerdc64.exe' );
+$file = "$env:TEMP\{0}" -f $uri.Segments[-1];
+[System.Net.WebClient]::new().DownloadFile( $uri, $file );
+Start-Process -FilePath $file -ArgumentList '/silent /install' -Wait;
+Remove-Item -LiteralPath $file -ErrorAction 'SilentlyContinue';
