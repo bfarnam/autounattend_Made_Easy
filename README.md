@@ -66,7 +66,7 @@ Save you autoattend.xml file to the path of your choice.
 + Add, Change, Delete the appropriate "phase" scripts which are in the `$OEM$\$$\Setup\Scripts` folder.
 + Add drivers that you wish to load into `$OEM$\$1\Drivers` and create the ".install" files.  Refer to the samples.
 + Add software that you wish to auto install to eithier `$OEM$\$1\Software` or `$OEM$\$1\Software\autoinstall` and create the ".install" files.  Refer to the samples.
-+ Add software that you wish to have the option of installaing later to `$OEM$\$1\Software`.
++ Add software that you wish to have the option of installing later to `$OEM$\$1\Software`.
 + Add any "all users" custom shortcuts to `$OEM$\$1\users\public\desktop` or the appropriate path for you OS.
 + Add any other directories that you wish to pre-populate.
 
