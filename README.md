@@ -59,7 +59,7 @@ as a "**.ps1**" file.
  - etc.
 
 ### Save your autoattend.xml file
-Save you autoattend.xml file to the path of your choice.
+Save you `autoattend.xml` file to the path of your choice.
 
 ## Step 2
 ### Modify <span>$</span>OEM<span>$</span> to include the items you wish to copy over to the system during the setup process
@@ -74,7 +74,7 @@ Save you autoattend.xml file to the path of your choice.
 ### Make your install media
 #### Booting from a USB drive
 + Use a utility, such as Rufus to burn the OS to a USB drive
-+ Copy the saved autoattend.xml and the `$OEM$` folders to the root of you install media
++ Copy the saved `autoattend.xml` and the `$OEM$` folders to the root of you install media
 #### Booting from an ISO file
 + Modify the ISO file of your OS using a utility such as AnyBurn and copy the autoattend.xml and the `$OEM$` folders to the root of the ISO
 + Then burn the ISO to a DVD or use a utility such as VenToy to load the ISO on boot
