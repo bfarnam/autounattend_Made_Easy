@@ -28,8 +28,8 @@ $strAuthor = "Brett A. Farnam (brett_farnam@yahoo.com)";
 
 # Set the IP address, subnet mask, and default gateway
 $ips2try = @("192.168.1.1","192.168.1.10","192.168.1.11");
-$subnetMask = "255.255.255.128";
-$prefixCIDR = 25;
+$subnetMask = "255.255.255.0";
+$prefixCIDR = 24;
 $defaultGateway = "192.168.1.254";
 $dnsServers = "192.168.1.254,8.8.8.8";
 
