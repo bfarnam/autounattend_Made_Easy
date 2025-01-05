@@ -76,7 +76,7 @@ Save you `autoattend.xml` file to the path of your choice.
 + Use a utility, such as Rufus to burn the OS to a USB drive
 + Copy the saved `autoattend.xml` and the `$OEM$` folders to the root of you install media
 #### Booting from an ISO file
-+ Modify the ISO file of your OS using a utility such as AnyBurn and copy the autoattend.xml and the `$OEM$` folders to the root of the ISO
++ Modify the ISO file of your OS using a utility such as AnyBurn and copy the `autoattend.xml` and the `$OEM$` folders to the root of the ISO
 + Then burn the ISO to a DVD or use a utility such as VenToy to load the ISO on boot
 
 ## Step 4
