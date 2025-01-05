@@ -13,7 +13,7 @@ If you decide to create your own autounattend.xml file or use one of the other o
 
 # PROCESS OUTLINED
 ## Step 1
-Using Christoph's generator, add what ever options you want but include the following:
+Using Christoph's generator, add what ever options you want to _**but include the following**_:
     
 ### Setup Settings: 
 #### Use a distribution share / configuration set
